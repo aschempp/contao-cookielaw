@@ -47,7 +47,7 @@ window.cookielaw = {
     acceptButton: "' . specialchars($arrButtons[0]) . '",
     declineButton: "' . specialchars($arrButtons[1]) . '",
     blockedUrls: ["' . implode('","', deserialize($objRootPage->cookielawBlocked, true)) . '"]' . ($objRootPage->cookielawRecipient == '' ? '' : ',
-    confirmUrl: "ajax.php?action=cookielaw&pageId=' . $objPage->id) . '"
+    confirmUrl: "ajax.php?action=cookielaw&pageId=' . $objPage->id . '"') . '
 };
 </script>
 <script type="text/javascript" src="system/modules/cookielaw/assets/cookielaw.min.js"></script>';
