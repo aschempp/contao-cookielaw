@@ -1,0 +1,1 @@
+window.cookielaw=window.cookielaw||{};window.cookielaw.onPermission=function(a){a()};
