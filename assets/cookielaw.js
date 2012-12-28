@@ -23,10 +23,8 @@ window.cookielaw.onPermission = (function() {
             cookiesAllowed = false;
 
             // Check the list of blocked pages. This could be a description about the cookie law (would not make sense to show the popup there)
-            if (window.cookielaw.blockedUrls && window.cookielaw.blockedUrls.indexOf) {
-                if (window.cookielaw.blockedUrls.indexOf(window.location.href) > -1) {
-                    return;
-                }
+            if (window.cookielaw.blockedUrls && window.cookielaw.blockedUrls.indexOf && window.cookielaw.blockedUrls.indexOf(window.location.href) > -1) {
+                return;
             }
 
             // Check if cookies are enabled in the browser (if not, we dont need to ask for it)
@@ -44,24 +42,35 @@ window.cookielaw.onPermission = (function() {
                     href: 'system/modules/cookielaw/assets/cookielaw.css'
                 }).inject(document.head);
 
+                // Hide flash elements, they would be above the popup
+                var hideFlash = setTimeout(function() { $$('.mod_flash').setStyle('display', 'none'); }, 2000);
+
                 var overlay = new Element('div', {'id':'cookielawOverlay'});
                 var popup = new Element('div', {'id':'cookielawPopup', 'html':window.cookielaw.messageBody});
 
+                var writeCookie = function(state) {
+                    cookiesAllowed = state;
+                    Cookie.write(('legalcookie-'+window.location.hostname), state);
+                    overlay.destroy();
+                    popup.destroy();
+                    clearTimeout(hideFlash);
+                    $$('.mod_flash').setStyle('display', 'block');
+
+                    if (state) {
+                        execCallbacks();
+                        if (window.cookielaw.confirmUrl) {
+                            new Request({url:window.cookielaw.confirmUrl, method:'post', data:('site='+window.location.href)}).send();
+                        }
+                    }
+                };
+
                 popup.adopt(
                     new Element('a', {'class':'decline', 'href':'#', 'text':window.cookielaw.declineButton, 'styles':{}}).addEvent('click', function() {
-                        Cookie.write(('legalcookie-'+window.location.hostname), false);
-                        overlay.destroy();
-                        popup.destroy();
+                        writeCookie(false);
                         return false;
                     }),
                     new Element('a', {'class':'accept', 'href':'#', 'text':window.cookielaw.acceptButton, 'styles':{}}).addEvent('click', function() {
-                        cookiesAllowed = true;
-                        Cookie.write(('legalcookie-'+window.location.hostname), true);
-                        overlay.destroy();
-                        popup.destroy();
-                        execCallbacks();
-                        if (window.cookielaw.confirmUrl)
-                            new Request({url:window.cookielaw.confirmUrl, method:'post', data:('site='+window.location.href)}).send();
+                        writeCookie(true);
                         return false;
                     })
                 );
