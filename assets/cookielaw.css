@@ -7,17 +7,19 @@
     background: #fff;
     opacity: 0.8;
     z-index: 998;
+    filter: Alpha(Opacity=80);
 }
 
 #cookielawPopup {
     position: absolute;
-    width: 300px;
+    width: 310px;
     padding: 15px;
     background: #fff;
     z-index: 999;
     border-radius: 4px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     font: 11px/17px Arial, sans-serif;
+    text-align: justify;
 }
 
 #cookielawPopup .accept,

@@ -39,7 +39,7 @@ window.cookielaw.onPermission = (function() {
                     rel: 'stylesheet',
                     media: 'screen',
                     type: 'text/css',
-                    href: 'system/modules/cookielaw/assets/cookielaw.css'
+                    href: 'system/modules/cookielaw/assets/cookielaw.min.css'
                 }).inject(document.head);
 
                 // Hide flash elements, they would be above the popup
