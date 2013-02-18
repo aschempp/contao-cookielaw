@@ -8,9 +8,7 @@ window.cookielaw.onPermission = (function() {
     var execCallbacks = function() {
         if (cookiesAllowed === true) {
             for(var i=0; i<callbacks.length; i++) {
-                try {
-                    callbacks[i]();
-                } catch (e) {}
+                setTimeout(callbacks[i], 0);
             }
 
             // Reset array, new callbacks might be added later
@@ -89,6 +87,6 @@ window.cookielaw.onPermission = (function() {
     return function(func) {
         callbacks.push(func);
         execCallbacks(); // try to run immediately, will only run if permission is already given
-        askForPermission(); // will only show popup if not yet asked
+        setTimeout(askForPermission, 0); // will only show popup if not yet asked
     };
 })();
