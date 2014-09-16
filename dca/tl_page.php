@@ -59,7 +59,7 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['cookielawButtons'] = array
     'label'             => &$GLOBALS['TL_LANG']['tl_page']['cookielawButtons'],
     'exclude'           => true,
     'inputType'         => 'text',
-    'eval'              => array('mandatory'=>true, 'multiple'=>true, 'size'=>2, 'maxlength'=>100, 'tl_class'=>'w50'),
+    'eval'              => array('multiple'=>true, 'size'=>2, 'maxlength'=>100, 'tl_class'=>'w50'),
 );
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['cookielawRecipient'] = array

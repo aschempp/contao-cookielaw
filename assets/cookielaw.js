@@ -62,11 +62,16 @@ window.cookielaw.onPermission = (function() {
                     }
                 };
 
+                if (window.cookielaw.declineButton) {
+                    popup.adopt(
+                        new Element('a', {'class':'decline', 'href':'#', 'text':window.cookielaw.declineButton, 'styles':{}}).addEvent('click', function() {
+                            writeCookie(false);
+                            return false;
+                        })
+                    );
+                }
+
                 popup.adopt(
-                    new Element('a', {'class':'decline', 'href':'#', 'text':window.cookielaw.declineButton, 'styles':{}}).addEvent('click', function() {
-                        writeCookie(false);
-                        return false;
-                    }),
                     new Element('a', {'class':'accept', 'href':'#', 'text':window.cookielaw.acceptButton, 'styles':{}}).addEvent('click', function() {
                         writeCookie(true);
                         return false;
